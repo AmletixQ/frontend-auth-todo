@@ -1,6 +1,7 @@
 :root {
   --primary: darkviolet;
   --border: 1px solid var(--primary);
+  --transition: 0.3s;
   --width: 1440px;
 }
 
@@ -17,4 +18,11 @@ body {
   display: flex;
   align-items: center;
   flex-direction: column;
+}
+
+form {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }

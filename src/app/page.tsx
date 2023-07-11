@@ -1,9 +1,7 @@
-import React from 'react'
+import React from "react";
 
 const RootPage = () => {
-  return (
-    <div>Hello!</div>
-  )
-}
+  return <div>Hello!</div>;
+};
 
-export default RootPage
+export default RootPage;

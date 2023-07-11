@@ -35,4 +35,4 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
 
 ## First step to develop
 
-Create base application (simple Todo application without auth-functional) and configure & prepare for start to upgrade to full-functional web-app.
+Create the register and login pages. Add for its functional and prepare to connect to database.

@@ -1,0 +1,20 @@
+:root {
+  --primary: darkviolet;
+  --border: 1px solid var(--primary);
+  --width: 1440px;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  width: 100vw;
+  height: 100vh;
+
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}

@@ -27,7 +27,7 @@ const RegisterForm = () => {
       />
       <Input
         placeholder="Enter your password"
-        type="text"
+        type="password"
         value={signInData.password}
         onChange={(e: ChangeEvent<HTMLInputElement>) =>
           setSignInData({ ...signInData, password: e.target.value })

@@ -32,6 +32,7 @@ const RegisterForm = () => {
         onChange={(e: ChangeEvent<HTMLInputElement>) =>
           setSignInData({ ...signInData, password: e.target.value })
         }
+        autoComplete="on"
       />
       <Button>Register</Button>
     </form>

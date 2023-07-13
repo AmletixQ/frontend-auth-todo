@@ -1,6 +1,6 @@
+import { Providers } from "@/components/Providers";
 import "./globals.css";
 import type { Metadata } from "next";
-
 
 export const metadata: Metadata = {
   title: "Auth Todo | Next + TS + SC",
@@ -14,7 +14,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <Providers>
+        <body>{children}</body>
+      </Providers>
     </html>
   );
 }

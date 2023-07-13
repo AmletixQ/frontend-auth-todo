@@ -1,7 +1,10 @@
 "use client";
-import { ChangeEvent, FormEvent, useState } from "react";
 import Button from "./UI/Button";
 import Input from "./UI/Input";
+import Span from "./UI/Span";
+import Link from "next/link";
+
+import { ChangeEvent, FormEvent, useState } from "react";
 import { ISignInData } from "../interfaces/interfaces";
 import axios from "axios";
 
@@ -53,6 +56,10 @@ const RegisterForm = () => {
         autoComplete="on"
       />
       <Button>Register</Button>
+
+      <Span>
+        or you can <Link href="/login">login</Link>
+      </Span>
     </form>
   );
 };

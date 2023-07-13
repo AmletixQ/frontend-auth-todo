@@ -4,6 +4,8 @@ import Button from "./UI/Button";
 import { ChangeEvent, FormEvent, useState } from "react";
 import { ILogInData } from "../interfaces/interfaces";
 import axios from "axios";
+import Link from "next/link";
+import Span from "./UI/Span";
 
 const LoginForm = () => {
   const [data, setData] = useState<ILogInData>({
@@ -40,6 +42,9 @@ const LoginForm = () => {
         autoComplete="on"
       />
       <Button>Log In</Button>
+      <Span>
+        or you can <Link href="/register">register</Link>
+      </Span>
     </form>
   );
 };

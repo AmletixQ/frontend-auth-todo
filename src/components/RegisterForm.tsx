@@ -1,14 +1,32 @@
 "use client";
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, FormEvent, useState } from "react";
 import Button from "./UI/Button";
 import Input from "./UI/Input";
 import { ISignInData } from "../interfaces/interfaces";
+import axios from "axios";
 
 const RegisterForm = () => {
-  const [signInData, setSignInData] = useState<ISignInData>({} as ISignInData);
+  const [signInData, setSignInData] = useState<ISignInData>({
+    email: "",
+    username: "",
+    password: "",
+  });
+
+  const handleSubmit = async (e: FormEvent) => {
+    e.preventDefault();
+    const response = await axios.post<ISignInData>(
+      "http://localhost:3000/register/api/",
+      signInData,
+    );
+    setSignInData({
+      email: "",
+      username: "",
+      password: "",
+    });
+  };
 
   return (
-    <form>
+    <form onSubmit={handleSubmit}>
       <Input
         placeholder="Enter your username"
         type="text"

@@ -1,13 +1,27 @@
 "use client";
 import Input from "./UI/Input";
 import Button from "./UI/Button";
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, FormEvent, useState } from "react";
 import { ILogInData } from "../interfaces/interfaces";
+import axios from "axios";
 
 const LoginForm = () => {
-  const [data, setData] = useState<ILogInData>({} as ILogInData);
+  const [data, setData] = useState<ILogInData>({
+    email: "",
+    password: "",
+  });
+
+  const handleSubmit = async (e: FormEvent) => {
+    e.preventDefault();
+    const response = await axios.post("http://localhost:3000/login/api", data);
+    setData({
+      email: "",
+      password: "",
+    });
+  };
+
   return (
-    <form>
+    <form onSubmit={handleSubmit}>
       <Input
         placeholder="Enter your email"
         type="email"

@@ -20,7 +20,7 @@ body {
   flex-direction: column;
 }
 
-form {
+div:has(form, h1) {
   position: fixed;
   top: 50%;
   left: 50%;

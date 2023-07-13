@@ -37,6 +37,7 @@ const LoginForm = () => {
         onChange={(e: ChangeEvent<HTMLInputElement>) =>
           setData({ ...data, password: e.target.value })
         }
+        autoComplete="on"
       />
       <Button>Log In</Button>
     </form>

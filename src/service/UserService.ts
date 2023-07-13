@@ -1,11 +1,8 @@
 import { Pool, QueryResultRow } from "pg";
-import {
-  IPoolSettings,
-  ISignInData,
-} from "../interfaces/interfaces";
+import { IPoolSettings, ISignInData } from "../interfaces/interfaces";
 
 class UserService {
-  pool: Pool;
+  private pool: Pool;
   constructor(databaseSettings: IPoolSettings) {
     this.pool = new Pool(databaseSettings);
   }

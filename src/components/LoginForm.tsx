@@ -1,13 +1,29 @@
 "use client";
 import Input from "./UI/Input";
 import Button from "./UI/Button";
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, FormEvent, useState } from "react";
 import { ILogInData } from "../interfaces/interfaces";
+import axios from "axios";
+import Link from "next/link";
+import Span from "./UI/Span";
 
 const LoginForm = () => {
-  const [data, setData] = useState<ILogInData>({} as ILogInData);
+  const [data, setData] = useState<ILogInData>({
+    email: "",
+    password: "",
+  });
+
+  const handleSubmit = async (e: FormEvent) => {
+    e.preventDefault();
+    const response = await axios.post("http://localhost:3000/api/login", data);
+    setData({
+      email: "",
+      password: "",
+    });
+  };
+
   return (
-    <form>
+    <form onSubmit={handleSubmit}>
       <Input
         placeholder="Enter your email"
         type="email"
@@ -23,8 +39,12 @@ const LoginForm = () => {
         onChange={(e: ChangeEvent<HTMLInputElement>) =>
           setData({ ...data, password: e.target.value })
         }
+        autoComplete="on"
       />
       <Button>Log In</Button>
+      <Span>
+        or you can <Link href="/register">register</Link>
+      </Span>
     </form>
   );
 };

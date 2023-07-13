@@ -15,7 +15,7 @@ const RegisterForm = () => {
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     const response = await axios.post<ISignInData>(
-      "http://localhost:3000/register/api/",
+      "http://localhost:3000/api/register",
       signInData,
     );
     setSignInData({

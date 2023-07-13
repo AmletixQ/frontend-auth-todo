@@ -13,7 +13,7 @@ const LoginForm = () => {
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    const response = await axios.post("http://localhost:3000/login/api", data);
+    const response = await axios.post("http://localhost:3000/api/login", data);
     setData({
       email: "",
       password: "",

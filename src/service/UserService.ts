@@ -1,5 +1,6 @@
 import { Pool, QueryResultRow } from "pg";
-import { IPoolSettings, ISignInData } from "../interfaces/interfaces";
+import { IEnterUserData, IPoolSettings } from "../interfaces/interfaces";
+import bcrypt from "bcrypt";
 
 class UserService {
   private pool: Pool;
@@ -8,13 +9,14 @@ class UserService {
   }
 
   private async isAlreadyExistUser<T extends QueryResultRow>(
-    email: string,
+    username: string,
   ): Promise<boolean> {
-    const query = "SELECT * FROM users WHERE email='$1'";
+    const query = `SELECT * FROM users WHERE username='${username}'`;
 
     try {
       const client = await this.pool.connect();
-      const { rows } = await client.query<T>(query, [email]);
+      const { rows } = await client.query<T>(query);
+      console;
       client.release();
 
       return !!rows.length;
@@ -24,28 +26,29 @@ class UserService {
   }
 
   async register({
-    email,
-    password,
     username,
-  }: ISignInData): Promise<ISignInData> {
-    const query =
-      "INSERT INTO users (username, email, password) values ($1, $2, $3)";
-    const values = [username, email, password];
+    password,
+  }: IEnterUserData): Promise<{ message: string }> {
+    const query = "INSERT INTO users (username, password) values ($1, $2)";
+    const hashPassword = await bcrypt.hash(password, 10);
+    const values = [username, hashPassword];
 
     try {
       const client = await this.pool.connect();
-      const isExists = await this.isAlreadyExistUser<ISignInData>(email);
+      const isExists = await this.isAlreadyExistUser<IEnterUserData>(username);
 
       if (!isExists) {
-        const response = await client.query<ISignInData>(query, values);
+        const res = await client.query<IEnterUserData>(query, values);
         client.release();
-        return response.rows[0];
+        return {
+          message: "Successfully register to application!",
+        };
       } else {
         client.release();
-        throw new Error("This user already exists!");
+        return { message: "This user is already exists!" };
       }
     } catch (e) {
-      throw e;
+      return { message: "Error at server!" };
     }
   }
 }

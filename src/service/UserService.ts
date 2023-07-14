@@ -1,5 +1,9 @@
 import { Pool, QueryResultRow } from "pg";
-import { IEnterUserData, IPoolSettings } from "../interfaces/interfaces";
+import {
+  IEnterUserData,
+  IPoolSettings,
+  IResponse,
+} from "../interfaces/interfaces";
 import bcrypt from "bcrypt";
 
 class UserService {
@@ -49,6 +53,39 @@ class UserService {
       }
     } catch (e) {
       return { message: "Error at server!" };
+    }
+  }
+
+  async login({ username, password }: IEnterUserData): Promise<IResponse> {
+    const query = `SELECT * FROM users WHERE username='${username}'`;
+    try {
+      const client = await this.pool.connect();
+      const { rows } = await client.query<IEnterUserData>(query);
+      const user = rows[0];
+      if (!user) {
+        return {
+          message: "This user don't at in this application!",
+          status: 400,
+        };
+      }
+      const passwordMatch = await bcrypt.compare(password, user.password);
+
+      if (passwordMatch) {
+        return {
+          message: "Success login!",
+          status: 200,
+        };
+      } else {
+        return {
+          message: "Invalid credentials!",
+          status: 400,
+        };
+      }
+    } catch (e) {
+      return {
+        message: "Error at server",
+        status: 500,
+      };
     }
   }
 }

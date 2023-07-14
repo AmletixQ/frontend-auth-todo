@@ -6,21 +6,35 @@ import Link from "next/link";
 
 import { ChangeEvent, FormEvent, useState } from "react";
 import { IEnterUserData } from "../interfaces/interfaces";
-import axios from "axios";
+import axios, { AxiosError } from "axios";
+import { useRouter } from "next/navigation";
 
-const LoginForm = () => {
-  const [data, setData] = useState<IEnterUserData>({
+interface IProps {
+  url: string | undefined
+}
+
+const LoginForm = ({ url }: IProps) => {
+  const router = useRouter();
+  const [logInData, setLogInData] = useState<IEnterUserData>({
     username: "",
     password: "",
   });
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    const response = await axios.post<IEnterUserData>(
-      "http://localhost:3000/api/login",
-      { ...data },
-    );
-    setData({
+
+    try {
+      const { data } = await axios.post<IEnterUserData>(
+        "http://localhost:3000/api/login",
+        logInData,
+      );
+      router.push(`${url}/profile`);
+    } catch (e) {
+      const error = e as AxiosError;
+      console.error(error);
+    }
+
+    setLogInData({
       username: "",
       password: "",
     });
@@ -31,17 +45,17 @@ const LoginForm = () => {
       <Input
         placeholder="Enter your username"
         type="text"
-        value={data.username}
+        value={logInData.username}
         onChange={(e: ChangeEvent<HTMLInputElement>) =>
-          setData({ ...data, username: e.target.value })
+          setLogInData({ ...logInData, username: e.target.value })
         }
       />
       <Input
         placeholder="Enter your password"
         type="password"
-        value={data.password}
+        value={logInData.password}
         onChange={(e: ChangeEvent<HTMLInputElement>) =>
-          setData({ ...data, password: e.target.value })
+          setLogInData({ ...logInData, password: e.target.value })
         }
         autoComplete="on"
       />

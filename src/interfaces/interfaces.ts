@@ -5,6 +5,10 @@ export interface IUser {
   password: string;
 }
 
+export type ILogInData = Omit<IUser, "id" | "username">;
+export type ISignInData = Omit<IUser, "id">;
+export type ILoggedUser = Omit<IUser, "id" | "password">;
+
 export interface IPoolSettings {
   host?: string;
   port?: number;
@@ -12,6 +16,3 @@ export interface IPoolSettings {
   user?: string;
   password?: string;
 }
-
-export type ILogInData = Omit<IUser, "id" | "username">;
-export type ISignInData = Omit<IUser, "id">;

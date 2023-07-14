@@ -13,10 +13,12 @@
     "@types/react": "18.2.14",
     "@types/react-dom": "18.2.6",
     "axios": "^1.4.0",
+    "bcrypt": "^5.1.0",
+    "cookie": "^0.5.0",
     "eslint": "8.44.0",
     "eslint-config-next": "13.4.9",
+    "jsonwebtoken": "^9.0.1",
     "next": "13.4.9",
-    "next-auth": "^4.22.1",
     "pg": "^8.11.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",
@@ -24,6 +26,9 @@
     "typescript": "5.1.6"
   },
   "devDependencies": {
+    "@types/bcrypt": "^5.0.0",
+    "@types/cookie": "^0.5.1",
+    "@types/jsonwebtoken": "^9.0.2",
     "@types/pg": "^8.10.2",
     "@types/styled-components": "^5.1.26",
     "prettier": "^3.0.0"

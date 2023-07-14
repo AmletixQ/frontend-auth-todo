@@ -1,23 +1,41 @@
 "use client";
 import Input from "./UI/Input";
 import Button from "./UI/Button";
-import { ChangeEvent, FormEvent, useState } from "react";
-import { ILogInData } from "../interfaces/interfaces";
-import axios from "axios";
-import Link from "next/link";
 import Span from "./UI/Span";
+import Link from "next/link";
 
-const LoginForm = () => {
-  const [data, setData] = useState<ILogInData>({
-    email: "",
+import { ChangeEvent, FormEvent, useState } from "react";
+import { IEnterUserData } from "../interfaces/interfaces";
+import axios, { AxiosError } from "axios";
+import { useRouter } from "next/navigation";
+
+interface IProps {
+  url: string | undefined
+}
+
+const LoginForm = ({ url }: IProps) => {
+  const router = useRouter();
+  const [logInData, setLogInData] = useState<IEnterUserData>({
+    username: "",
     password: "",
   });
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    const response = await axios.post("http://localhost:3000/api/login", data);
-    setData({
-      email: "",
+
+    try {
+      const { data } = await axios.post<IEnterUserData>(
+        "http://localhost:3000/api/login",
+        logInData,
+      );
+      router.push(`${url}/profile`);
+    } catch (e) {
+      const error = e as AxiosError;
+      console.error(error);
+    }
+
+    setLogInData({
+      username: "",
       password: "",
     });
   };
@@ -25,19 +43,19 @@ const LoginForm = () => {
   return (
     <form onSubmit={handleSubmit}>
       <Input
-        placeholder="Enter your email"
-        type="email"
-        value={data.email}
+        placeholder="Enter your username"
+        type="text"
+        value={logInData.username}
         onChange={(e: ChangeEvent<HTMLInputElement>) =>
-          setData({ ...data, email: e.target.value })
+          setLogInData({ ...logInData, username: e.target.value })
         }
       />
       <Input
         placeholder="Enter your password"
         type="password"
-        value={data.password}
+        value={logInData.password}
         onChange={(e: ChangeEvent<HTMLInputElement>) =>
-          setData({ ...data, password: e.target.value })
+          setLogInData({ ...logInData, password: e.target.value })
         }
         autoComplete="on"
       />

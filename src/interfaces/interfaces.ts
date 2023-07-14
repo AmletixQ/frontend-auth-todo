@@ -1,8 +1,13 @@
 export interface IUser {
   id: number;
   username: string;
-  email: string;
   password: string;
+}
+
+export type IEnterUserData = Omit<IUser, "id">;
+export interface IResponse {
+  message: string;
+  status: number;
 }
 
 export interface IPoolSettings {
@@ -12,6 +17,3 @@ export interface IPoolSettings {
   user?: string;
   password?: string;
 }
-
-export type ILogInData = Omit<IUser, "id" | "username">;
-export type ISignInData = Omit<IUser, "id">;

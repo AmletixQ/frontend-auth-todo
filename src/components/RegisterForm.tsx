@@ -5,27 +5,36 @@ import Span from "./UI/Span";
 import Link from "next/link";
 
 import { ChangeEvent, FormEvent, useState } from "react";
-import { ISignInData } from "../interfaces/interfaces";
+import { IEnterUserData } from "../interfaces/interfaces";
 import axios from "axios";
+import { useRouter } from "next/navigation";
 
-const RegisterForm = () => {
-  const [signInData, setSignInData] = useState<ISignInData>({
-    email: "",
+interface IProps {
+  url: string | undefined;
+}
+
+const RegisterForm = ({ url }: IProps) => {
+  const router = useRouter();
+  const [signInData, setSignInData] = useState<IEnterUserData>({
     username: "",
     password: "",
   });
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    const response = await axios.post<ISignInData>(
-      "http://localhost:3000/api/register",
-      signInData,
-    );
-    setSignInData({
-      email: "",
-      username: "",
-      password: "",
-    });
+    try {
+      const response = await axios.post<IEnterUserData>(
+        "http://localhost:3000/api/register",
+        signInData,
+      );
+      router.push(`${url}/login`);
+      setSignInData({
+        username: "",
+        password: "",
+      });
+    } catch(e) {
+
+    }
   };
 
   return (
@@ -36,14 +45,6 @@ const RegisterForm = () => {
         value={signInData.username}
         onChange={(e: ChangeEvent<HTMLInputElement>) =>
           setSignInData({ ...signInData, username: e.target.value })
-        }
-      />
-      <Input
-        placeholder="Enter your email"
-        type="email"
-        value={signInData.email}
-        onChange={(e: ChangeEvent<HTMLInputElement>) =>
-          setSignInData({ ...signInData, email: e.target.value })
         }
       />
       <Input

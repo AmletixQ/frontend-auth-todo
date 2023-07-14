@@ -1,21 +1,24 @@
 "use client";
 import Button from "@/components/UI/Button";
-import { signIn, useSession } from "next-auth/react";
-import { redirect } from "next/navigation";
-import React from "react";
+import Span from "@/components/UI/Span";
+import { useRouter } from "next/navigation";
+import { styled } from "styled-components";
+
+const StyledBlock = styled.div`
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
 
 const RootPage = () => {
-  const { data: session, status } = useSession();
-
-  if (status === "authenticated") {
-    redirect("/profile");
-  }
-
+  const router = useRouter();
   return (
-    <div>
-      <h1>Not in signed!</h1>
-      <Button onClick={() => signIn()}>Sign in</Button>
-    </div>
+    <StyledBlock>
+      <Button onClick={() => router.push("/register")}>Register</Button>
+      <Span> or </Span>
+      <Button onClick={() => router.push("/login")}>Login</Button>
+    </StyledBlock>
   );
 };
 

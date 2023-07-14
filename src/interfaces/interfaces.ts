@@ -5,6 +5,10 @@ export interface IUser {
 }
 
 export type IEnterUserData = Omit<IUser, "id">;
+export interface IResponse {
+  message: string;
+  status: number;
+}
 
 export interface IPoolSettings {
   host?: string;

@@ -1,23 +1,27 @@
 "use client";
 import Input from "./UI/Input";
 import Button from "./UI/Button";
-import { ChangeEvent, FormEvent, useState } from "react";
-import { ILogInData } from "../interfaces/interfaces";
-import axios from "axios";
-import Link from "next/link";
 import Span from "./UI/Span";
+import Link from "next/link";
+
+import { ChangeEvent, FormEvent, useState } from "react";
+import { IEnterUserData } from "../interfaces/interfaces";
+import axios from "axios";
 
 const LoginForm = () => {
-  const [data, setData] = useState<ILogInData>({
-    email: "",
+  const [data, setData] = useState<IEnterUserData>({
+    username: "",
     password: "",
   });
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    const response = await axios.post("http://localhost:3000/api/login", data);
+    const response = await axios.post<IEnterUserData>(
+      "http://localhost:3000/api/login",
+      { ...data },
+    );
     setData({
-      email: "",
+      username: "",
       password: "",
     });
   };
@@ -25,11 +29,11 @@ const LoginForm = () => {
   return (
     <form onSubmit={handleSubmit}>
       <Input
-        placeholder="Enter your email"
-        type="email"
-        value={data.email}
+        placeholder="Enter your username"
+        type="text"
+        value={data.username}
         onChange={(e: ChangeEvent<HTMLInputElement>) =>
-          setData({ ...data, email: e.target.value })
+          setData({ ...data, username: e.target.value })
         }
       />
       <Input

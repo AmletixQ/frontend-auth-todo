@@ -4,7 +4,7 @@ const RegisterPage = () => {
   return (
     <div>
       <h1>Register page</h1>
-      <RegisterForm />
+      <RegisterForm url={process.env.DEVELOP_URL}/>
     </div>
   );
 };

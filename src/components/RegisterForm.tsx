@@ -7,8 +7,14 @@ import Link from "next/link";
 import { ChangeEvent, FormEvent, useState } from "react";
 import { IEnterUserData } from "../interfaces/interfaces";
 import axios from "axios";
+import { useRouter } from "next/navigation";
 
-const RegisterForm = () => {
+interface IProps {
+  url: string | undefined;
+}
+
+const RegisterForm = ({ url }: IProps) => {
+  const router = useRouter();
   const [signInData, setSignInData] = useState<IEnterUserData>({
     username: "",
     password: "",
@@ -16,16 +22,19 @@ const RegisterForm = () => {
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    const response = await axios.post<IEnterUserData>(
-      "http://localhost:3000/api/register",
-      signInData,
-    );
-    setSignInData({
-      username: "",
-      password: "",
-    });
+    try {
+      const response = await axios.post<IEnterUserData>(
+        "http://localhost:3000/api/register",
+        signInData,
+      );
+      router.push(`${url}/login`);
+      setSignInData({
+        username: "",
+        password: "",
+      });
+    } catch(e) {
 
-    console.log(response.data);
+    }
   };
 
   return (

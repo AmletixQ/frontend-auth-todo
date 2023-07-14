@@ -1,13 +1,10 @@
 export interface IUser {
   id: number;
   username: string;
-  email: string;
   password: string;
 }
 
-export type ILogInData = Omit<IUser, "id" | "username">;
-export type ISignInData = Omit<IUser, "id">;
-export type ILoggedUser = Omit<IUser, "id" | "password">;
+export type IEnterUserData = Omit<IUser, "id">;
 
 export interface IPoolSettings {
   host?: string;

@@ -6,39 +6,19 @@ import Link from "next/link";
 
 import { ChangeEvent, FormEvent, useState } from "react";
 import { IEnterUserData } from "../interfaces/interfaces";
-import axios from "axios";
-import { useRouter } from "next/navigation";
 
 interface IProps {
   url: string | undefined;
 }
 
 const RegisterForm = ({ url }: IProps) => {
-  const router = useRouter();
   const [signInData, setSignInData] = useState<IEnterUserData>({
     username: "",
     password: "",
   });
 
-  const handleSubmit = async (e: FormEvent) => {
-    e.preventDefault();
-    try {
-      const response = await axios.post<IEnterUserData>(
-        "http://localhost:3000/api/register",
-        signInData,
-      );
-      router.push(`${url}/login`);
-      setSignInData({
-        username: "",
-        password: "",
-      });
-    } catch(e) {
-
-    }
-  };
-
   return (
-    <form onSubmit={handleSubmit}>
+    <form>
       <Input
         placeholder="Enter your username"
         type="text"

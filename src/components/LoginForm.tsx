@@ -4,13 +4,13 @@ import Button from "./UI/Button";
 import Span from "./UI/Span";
 import Link from "next/link";
 
-import { ChangeEvent, FormEvent, useContext, useState } from "react";
+import { ChangeEvent, FormEvent, useState } from "react";
 import { IEnterUserData, ISession } from "../interfaces/interfaces";
 import { http } from "@/lib/http";
-import { sessionContext } from "./SessionContext";
+import { useRouter } from "next/navigation";
 
 const LoginForm = () => {
-  const { setSession } = useContext(sessionContext);
+  const router = useRouter();
   const [logInData, setLogInData] = useState<IEnterUserData>({
     email: "",
     password: "",
@@ -18,12 +18,12 @@ const LoginForm = () => {
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    const { data } = await http.post<ISession>("/signin", logInData);
+    await http.post<ISession>("/signin", logInData);
     setLogInData({
       email: "",
       password: "",
     });
-    setSession(data);
+    router.push("/dashboard");
   };
 
   return (

@@ -4,6 +4,7 @@ import type { NextRequest } from "next/server";
 export async function middleware(request: NextRequest) {
   const token = request.cookies.get("auth-token");
 
+  console.log(request.url);
   if (!token) {
     return NextResponse.redirect(new URL("/login", request.url));
   }
@@ -16,6 +17,10 @@ export async function middleware(request: NextRequest) {
 
   if (!jwtStatus) {
     return NextResponse.redirect(new URL("/login", request.url));
+  }
+
+  if (request.url.includes("/login") || request.url.includes("/register")) {
+    return NextResponse.redirect(new URL("/dashboard", request.url));
   }
   return NextResponse.next();
 }

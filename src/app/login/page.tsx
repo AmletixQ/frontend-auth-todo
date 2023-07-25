@@ -1,10 +1,10 @@
 import LoginForm from "@/components/LoginForm";
 
-const LoginPage = () => {
+const LoginPage = async () => {
   return (
     <div>
       <h1>Login page</h1>
-      <LoginForm url={process.env.DEVELOP_URL} />
+      <LoginForm />
     </div>
   );
 };

@@ -6,7 +6,8 @@ interface IProps extends ISession {}
 const ProfileCard: FC<IProps> = ({ email, id }) => {
   return (
     <div>
-      {id}: {email}
+      <h4>Your ID: {id}</h4>
+      <h2>Your email: {email}</h2>
     </div>
   );
 };

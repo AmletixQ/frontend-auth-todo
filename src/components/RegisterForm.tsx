@@ -6,7 +6,7 @@ import Link from "next/link";
 
 import { ChangeEvent, FormEvent, useState } from "react";
 import { IEnterUserData } from "../interfaces/interfaces";
-import axios from "axios";
+import { http } from "@/lib/http";
 
 const RegisterForm = () => {
   const [signInData, setSignInData] = useState<IEnterUserData>({
@@ -16,11 +16,11 @@ const RegisterForm = () => {
 
   const handlerSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    const response = await axios.post<{
+    const response = await http.post<{
       id: number;
       email: string;
       token: string;
-    }>("http://localhost:3000/api/signup", signInData);
+    }>("/signup", signInData);
 
     setSignInData({
       email: "",

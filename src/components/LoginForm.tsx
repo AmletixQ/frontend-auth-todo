@@ -3,12 +3,15 @@ import Input from "./UI/Input";
 import Button from "./UI/Button";
 import Span from "./UI/Span";
 import Link from "next/link";
+import { UserContext } from "./ContextProvider";
 
-import { ChangeEvent, FormEvent, useState } from "react";
-import { IEnterUserData } from "../interfaces/interfaces";
-import axios from "axios";
+import { ChangeEvent, FormEvent, useContext, useState } from "react";
+import { IEnterUserData, ISession } from "../interfaces/interfaces";
+import { http } from "@/lib/http";
 
 const LoginForm = () => {
+  const { setSession } = useContext(UserContext);
+
   const [logInData, setLogInData] = useState<IEnterUserData>({
     email: "",
     password: "",
@@ -16,17 +19,14 @@ const LoginForm = () => {
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    const response = await axios.post(
-      "api/auth/callback/credentials/",
-      logInData,
-    );
+    const { data } = await http.post<ISession>("/signin", logInData);
     setLogInData({
       email: "",
       password: "",
     });
 
-    const data = await response.data();
     console.log(data);
+    setSession(data);
   };
 
   return (

@@ -16,7 +16,7 @@ const RegisterForm = () => {
 
   const handlerSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    const response = await http.post<{
+    const { data } = await http.post<{
       id: number;
       email: string;
       token: string;

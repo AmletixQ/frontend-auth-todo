@@ -3,15 +3,12 @@ import Input from "./UI/Input";
 import Button from "./UI/Button";
 import Span from "./UI/Span";
 import Link from "next/link";
-import { UserContext } from "./ContextProvider";
 
-import { ChangeEvent, FormEvent, useContext, useState } from "react";
+import { ChangeEvent, FormEvent, useState } from "react";
 import { IEnterUserData, ISession } from "../interfaces/interfaces";
 import { http } from "@/lib/http";
 
 const LoginForm = () => {
-  const { setSession } = useContext(UserContext);
-
   const [logInData, setLogInData] = useState<IEnterUserData>({
     email: "",
     password: "",
@@ -24,9 +21,6 @@ const LoginForm = () => {
       email: "",
       password: "",
     });
-
-    console.log(data);
-    setSession(data);
   };
 
   return (

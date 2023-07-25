@@ -1,13 +1,21 @@
-export interface IUser {
+export type TUser = {
   id: number;
-  username: string;
+  email: string;
   password: string;
+};
+
+export type IUser = Omit<TUser, "password">;
+export type IEnterUserData = Omit<TUser, "id">;
+
+export interface ISession {
+  id: number;
+  email: string;
 }
 
-export type IEnterUserData = Omit<IUser, "id">;
 export interface IResponse {
   message: string;
   status: number;
+  data: IUser | null;
 }
 
 export interface IPoolSettings {

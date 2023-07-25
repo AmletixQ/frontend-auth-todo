@@ -4,40 +4,26 @@ import Button from "./UI/Button";
 import Span from "./UI/Span";
 import Link from "next/link";
 
-import { ChangeEvent, FormEvent, useState } from "react";
-import { IEnterUserData } from "../interfaces/interfaces";
-import axios, { AxiosError } from "axios";
-import { useRouter } from "next/navigation";
+import { ChangeEvent, FormEvent, useContext, useState } from "react";
+import { IEnterUserData, ISession } from "../interfaces/interfaces";
+import { http } from "@/lib/http";
+import { sessionContext } from "./SessionContext";
 
-interface IProps {
-  url: string | undefined
-}
-
-const LoginForm = ({ url }: IProps) => {
-  const router = useRouter();
+const LoginForm = () => {
+  const { setSession } = useContext(sessionContext);
   const [logInData, setLogInData] = useState<IEnterUserData>({
-    username: "",
+    email: "",
     password: "",
   });
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-
-    try {
-      const { data } = await axios.post<IEnterUserData>(
-        "http://localhost:3000/api/login",
-        logInData,
-      );
-      router.push(`${url}/profile`);
-    } catch (e) {
-      const error = e as AxiosError;
-      console.error(error);
-    }
-
+    const { data } = await http.post<ISession>("/signin", logInData);
     setLogInData({
-      username: "",
+      email: "",
       password: "",
     });
+    setSession(data);
   };
 
   return (
@@ -45,9 +31,9 @@ const LoginForm = ({ url }: IProps) => {
       <Input
         placeholder="Enter your username"
         type="text"
-        value={logInData.username}
+        value={logInData.email}
         onChange={(e: ChangeEvent<HTMLInputElement>) =>
-          setLogInData({ ...logInData, username: e.target.value })
+          setLogInData({ ...logInData, email: e.target.value })
         }
       />
       <Input

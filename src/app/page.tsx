@@ -1,7 +1,4 @@
 "use client";
-import Button from "@/components/UI/Button";
-import Span from "@/components/UI/Span";
-import { useRouter } from "next/navigation";
 import { styled } from "styled-components";
 
 const StyledBlock = styled.div`
@@ -12,12 +9,9 @@ const StyledBlock = styled.div`
 `;
 
 const RootPage = () => {
-  const router = useRouter();
   return (
     <StyledBlock>
-      <Button onClick={() => router.push("/register")}>Register</Button>
-      <Span> or </Span>
-      <Button onClick={() => router.push("/login")}>Login</Button>
+      <h1>Main page</h1>
     </StyledBlock>
   );
 };

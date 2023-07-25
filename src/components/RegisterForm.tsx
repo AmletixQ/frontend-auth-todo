@@ -6,45 +6,36 @@ import Link from "next/link";
 
 import { ChangeEvent, FormEvent, useState } from "react";
 import { IEnterUserData } from "../interfaces/interfaces";
-import axios from "axios";
-import { useRouter } from "next/navigation";
+import { http } from "@/lib/http";
 
-interface IProps {
-  url: string | undefined;
-}
-
-const RegisterForm = ({ url }: IProps) => {
-  const router = useRouter();
+const RegisterForm = () => {
   const [signInData, setSignInData] = useState<IEnterUserData>({
-    username: "",
+    email: "",
     password: "",
   });
 
-  const handleSubmit = async (e: FormEvent) => {
+  const handlerSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    try {
-      const response = await axios.post<IEnterUserData>(
-        "http://localhost:3000/api/register",
-        signInData,
-      );
-      router.push(`${url}/login`);
-      setSignInData({
-        username: "",
-        password: "",
-      });
-    } catch(e) {
+    const { data } = await http.post<{
+      id: number;
+      email: string;
+      token: string;
+    }>("/signup", signInData);
 
-    }
+    setSignInData({
+      email: "",
+      password: "",
+    });
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handlerSubmit}>
       <Input
         placeholder="Enter your username"
-        type="text"
-        value={signInData.username}
+        type="email"
+        value={signInData.email}
         onChange={(e: ChangeEvent<HTMLInputElement>) =>
-          setSignInData({ ...signInData, username: e.target.value })
+          setSignInData({ ...signInData, email: e.target.value })
         }
       />
       <Input
@@ -56,7 +47,7 @@ const RegisterForm = ({ url }: IProps) => {
         }
         autoComplete="on"
       />
-      <Button>Register</Button>
+      <Button type="submit">Register</Button>
 
       <Span>
         or you can <Link href="/login">login</Link>

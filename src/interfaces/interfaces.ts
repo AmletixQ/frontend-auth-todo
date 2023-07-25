@@ -10,7 +10,6 @@ export type IEnterUserData = Omit<TUser, "id">;
 export interface ISession {
   id: number;
   email: string;
-  token: string;
 }
 
 export interface IResponse {

@@ -1,7 +1,7 @@
 import { redirect } from "next/navigation";
 import { cookies } from "next/headers";
 
-export default async function useServerSession() {
+export default async function getServerSession() {
   const token = cookies().get("auth-token");
 
   if (!token) {

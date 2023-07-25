@@ -1,6 +1,4 @@
 "use client";
-import { ILoggedUser } from "@/interfaces/interfaces";
-import { createContext } from "react";
 import { styled } from "styled-components";
 
 const StyledBlock = styled.div`

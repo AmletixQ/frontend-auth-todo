@@ -3,6 +3,7 @@ import db from "@/lib/db";
 import jwt from "jsonwebtoken";
 import { NextResponse } from "next/server";
 import { compare } from "bcrypt";
+import { cookies } from "next/headers";
 
 export const POST = async (req: Request, res: Response) => {
   const data: IEnterUserData = await req.json();
@@ -34,13 +35,13 @@ export const POST = async (req: Request, res: Response) => {
     },
     process.env.SUPER_SECRET_KEY!,
     {
-      expiresIn: "1m",
+      expiresIn: "30d",
     },
   );
 
+  cookies().set("auth-token", token);
   return NextResponse.json({
     id: user.id,
     email: user.email,
-    token,
   });
 };

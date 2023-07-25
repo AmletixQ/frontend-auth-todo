@@ -6,25 +6,37 @@ import Link from "next/link";
 
 import { ChangeEvent, FormEvent, useState } from "react";
 import { IEnterUserData } from "../interfaces/interfaces";
+import axios from "axios";
 
-interface IProps {
-  url: string | undefined
-}
-
-const LoginForm = ({ url }: IProps) => {
+const LoginForm = () => {
   const [logInData, setLogInData] = useState<IEnterUserData>({
-    username: "",
+    email: "",
     password: "",
   });
 
+  const handleSubmit = async (e: FormEvent) => {
+    e.preventDefault();
+    const response = await axios.post(
+      "api/auth/callback/credentials/",
+      logInData,
+    );
+    setLogInData({
+      email: "",
+      password: "",
+    });
+
+    const data = await response.data();
+    console.log(data);
+  };
+
   return (
-    <form>
+    <form onSubmit={handleSubmit}>
       <Input
         placeholder="Enter your username"
         type="text"
-        value={logInData.username}
+        value={logInData.email}
         onChange={(e: ChangeEvent<HTMLInputElement>) =>
-          setLogInData({ ...logInData, username: e.target.value })
+          setLogInData({ ...logInData, email: e.target.value })
         }
       />
       <Input

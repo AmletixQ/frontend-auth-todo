@@ -1,4 +1,3 @@
-import { http } from "@/lib/http";
 import axios from "axios";
 
 const DashboardPage = async () => {

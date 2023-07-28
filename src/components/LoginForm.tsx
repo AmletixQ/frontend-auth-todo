@@ -5,9 +5,10 @@ import Span from "./UI/Span";
 import Link from "next/link";
 
 import { ChangeEvent, FormEvent, useState } from "react";
-import { IEnterUserData, ISession } from "../interfaces/interfaces";
 import { http } from "@/lib/http";
 import { useRouter } from "next/navigation";
+import { IEnterUserData } from "@/interfaces/userType";
+import { ISession } from "@/interfaces/sessionType";
 
 const LoginForm = () => {
   const router = useRouter();

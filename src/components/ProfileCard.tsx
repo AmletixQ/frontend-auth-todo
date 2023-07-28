@@ -1,5 +1,5 @@
 "use client";
-import { ISession } from "@/interfaces/interfaces";
+import { ISession } from "@/interfaces/sessionType";
 import { FC } from "react";
 
 interface IProps extends ISession {}

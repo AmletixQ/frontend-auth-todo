@@ -5,8 +5,8 @@ import Span from "./UI/Span";
 import Link from "next/link";
 
 import { ChangeEvent, FormEvent, useState } from "react";
-import { IEnterUserData } from "../interfaces/interfaces";
 import { http } from "@/lib/http";
+import { IEnterUserData } from "@/interfaces/userType";
 
 const RegisterForm = () => {
   const [signInData, setSignInData] = useState<IEnterUserData>({

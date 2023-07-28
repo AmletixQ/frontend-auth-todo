@@ -18,7 +18,7 @@ const LoginForm = () => {
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    await http.post<ISession>("/signin", logInData);
+    await http.post<ISession>("/auth/signin", logInData);
     setLogInData({
       email: "",
       password: "",

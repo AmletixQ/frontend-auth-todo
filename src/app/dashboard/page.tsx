@@ -1,4 +1,4 @@
-const DashboardPage = async () => {
+const DashboardPage = () => {
   return (
     <div>
       <h2>Home page</h2>

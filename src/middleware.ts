@@ -9,7 +9,7 @@ export async function middleware(request: NextRequest) {
     return NextResponse.redirect(new URL("/login", request.url));
   }
 
-  const jwtStatus = await fetch("http://localhost:3000/api/validate", {
+  const jwtStatus = await fetch("http://localhost:3000/api/auth/validate", {
     headers: new Headers({
       Authorization: `Bearer ${token.value}`,
     }),

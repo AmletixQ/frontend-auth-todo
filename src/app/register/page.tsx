@@ -1,11 +1,12 @@
 import RegisterForm from "@/components/RegisterForm";
+import { FormBlock } from "@/components/UI/FormBlock";
 
 const RegisterPage = async () => {
   return (
-    <div>
+    <FormBlock>
       <h1>Register page</h1>
       <RegisterForm />
-    </div>
+    </FormBlock>
   );
 };
 

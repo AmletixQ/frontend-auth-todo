@@ -39,7 +39,7 @@ export const POST = async (req: Request, res: Response) => {
     },
   );
 
-  cookies().set("auth-token", token);
+  cookies().set({ name: "auth-token", value: token, httpOnly: true });
   return NextResponse.json({
     id: user.id,
     email: user.email,

@@ -21,5 +21,8 @@ export default async function getServerSession() {
   return {
     id: data.id,
     email: data.email,
+  } as {
+    id: number;
+    email: string;
   };
 }

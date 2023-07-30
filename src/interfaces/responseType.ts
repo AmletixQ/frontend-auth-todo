@@ -1,3 +1,5 @@
+import { IUser } from "./userType";
+
 export interface IResponse {
   message: string;
   status: number;

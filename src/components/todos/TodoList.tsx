@@ -21,7 +21,7 @@ const TodoList: FC<ISetTodo> = ({ todos, setTodos }) => {
       ))}
     </GapBlock>
   ) : (
-    <h2 className="center">You haven't todo</h2>
+    <h2 className="center">You haven't todo :-(</h2>
   );
 };
 

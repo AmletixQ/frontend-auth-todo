@@ -30,8 +30,8 @@ const StyledBlock = styled.div`
   }
 `;
 
-type TProps = ITodoItem & Omit<ISetTodo, "todos">;
-const TodoItem: FC<TProps> = ({ id, title, completed, setTodos }) => {
+type TProps = ITodoItem & ISetTodo;
+const TodoItem: FC<TProps> = ({ id, title, completed, todos, setTodos }) => {
   const changeStatus = async () => {
     await http.patch(`/todos/${id}`, {
       completed: !completed,

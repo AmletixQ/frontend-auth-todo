@@ -4,12 +4,11 @@ import type { NextRequest } from "next/server";
 export async function middleware(request: NextRequest) {
   const token = request.cookies.get("auth-token");
 
-  console.log(request.url);
   if (!token) {
     return NextResponse.redirect(new URL("/login", request.url));
   }
 
-  const jwtStatus = await fetch("http://localhost:3000/api/validate", {
+  const jwtStatus = await fetch("http://localhost:3000/api/auth/validate", {
     headers: new Headers({
       Authorization: `Bearer ${token.value}`,
     }),

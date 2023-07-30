@@ -1,9 +1,9 @@
-import { IEnterUserData, TUser } from "@/interfaces/interfaces";
 import db from "@/lib/db";
 import jwt from "jsonwebtoken";
 import { NextResponse } from "next/server";
 import { compare } from "bcrypt";
 import { cookies } from "next/headers";
+import { IEnterUserData, TUser } from "@/interfaces/userType";
 
 export const POST = async (req: Request, res: Response) => {
   const data: IEnterUserData = await req.json();
@@ -39,7 +39,7 @@ export const POST = async (req: Request, res: Response) => {
     },
   );
 
-  cookies().set("auth-token", token);
+  cookies().set({ name: "auth-token", value: token, httpOnly: true });
   return NextResponse.json({
     id: user.id,
     email: user.email,

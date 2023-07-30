@@ -5,8 +5,8 @@ import Span from "./UI/Span";
 import Link from "next/link";
 
 import { ChangeEvent, FormEvent, useState } from "react";
-import { IEnterUserData } from "../interfaces/interfaces";
 import { http } from "@/lib/http";
+import { IEnterUserData } from "@/interfaces/userType";
 
 const RegisterForm = () => {
   const [signInData, setSignInData] = useState<IEnterUserData>({
@@ -16,11 +16,11 @@ const RegisterForm = () => {
 
   const handlerSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    const { data } = await http.post<{
+    await http.post<{
       id: number;
       email: string;
       token: string;
-    }>("/signup", signInData);
+    }>("/auth/signup", signInData);
 
     setSignInData({
       email: "",

@@ -1,7 +1,7 @@
-import { IEnterUserData, IUser } from "@/interfaces/interfaces";
 import db from "@/lib/db";
 import { NextResponse } from "next/server";
 import { hash } from "bcrypt";
+import { IEnterUserData, IUser } from "@/interfaces/userType";
 
 export const POST = async (req: Request, res: Response) => {
   const data: IEnterUserData = await req.json();

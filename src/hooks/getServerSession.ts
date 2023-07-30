@@ -8,7 +8,7 @@ export default async function getServerSession() {
     return redirect("/login");
   }
 
-  const data = await fetch("http://localhost:3000/api/validate", {
+  const data = await fetch("http://localhost:3000/api/auth/validate", {
     headers: new Headers({
       Authorization: `Bearer ${token.value}`,
     }),
@@ -21,5 +21,8 @@ export default async function getServerSession() {
   return {
     id: data.id,
     email: data.email,
+  } as {
+    id: number;
+    email: string;
   };
 }

@@ -15,7 +15,7 @@ const TodoAddForm: FC<ISetTodo & { user_id: number }> = ({
 
   const createTodo = async (e: FormEvent) => {
     e.preventDefault();
-    await http.post("/todos", {
+    const { data } = await http.post<{ id: number }>("/todos", {
       title: name,
       completed: false,
       user_id,
@@ -24,7 +24,7 @@ const TodoAddForm: FC<ISetTodo & { user_id: number }> = ({
     setTodos([
       ...todos,
       {
-        id: todos.length ? todos[todos.length - 1].id : 1,
+        id: data.id,
         title: name,
         completed: false,
       },

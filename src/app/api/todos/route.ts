@@ -4,6 +4,7 @@ import { NextResponse } from "next/server";
 
 export async function GET() {
   const session = await getBackendSession();
+  console.log(session);
 
   if (!session) {
     return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
@@ -29,10 +30,10 @@ export async function POST(req: Request) {
     user_id: number;
   } = await req.json();
 
-  await db.query(
-    `INSERT INTO todos (title, completed, user_id) VALUES ($1, $2, $3)`,
+  const { rows } = await db.query(
+    `INSERT INTO todos (title, completed, user_id) VALUES ($1, $2, $3) RETURNING id`,
     [body.title, body.completed, body.user_id],
   );
 
-  return NextResponse.json({ message: "Success" }, { status: 201 });
+  return NextResponse.json(rows[0], { status: 201 });
 }

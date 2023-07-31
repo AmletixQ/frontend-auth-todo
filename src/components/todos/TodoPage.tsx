@@ -15,7 +15,6 @@ interface IProps {
 
 const TodoPage: FC<IProps> = ({ todolist, session }) => {
   const [todos, setTodos] = useState<ITodoItem[]>(todolist);
-  const [loading, setLoading] = useState<boolean>(false);
   const [search, setSearch] = useState("");
 
   const filteredTodos = useMemo(() => {

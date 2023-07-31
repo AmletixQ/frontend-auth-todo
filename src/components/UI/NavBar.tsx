@@ -31,6 +31,7 @@ const NavBar = () => {
       <Button
         onClick={async () => {
           await http.post("/auth/logout");
+          router.refresh();
           router.push("/");
         }}
       >

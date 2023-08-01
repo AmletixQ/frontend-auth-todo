@@ -5,21 +5,30 @@ import Input from "../UI/Input";
 import Button from "../UI/Button";
 import { ISetTodo } from "@/interfaces/todoTypes";
 import { http } from "@/lib/http";
+import { ILoading } from "@/interfaces/loadingType";
 
-const TodoAddForm: FC<ISetTodo & { user_id: number }> = ({
+interface IProps extends ISetTodo, ILoading {
+  user_id: number;
+}
+
+const TodoAddForm: FC<IProps> = ({
   todos,
   setTodos,
   user_id,
+  loading,
+  setLoading,
 }) => {
   const [name, setName] = useState("");
 
   const createTodo = async (e: FormEvent) => {
     e.preventDefault();
+    setLoading(true);
     const { data } = await http.post<{ id: number }>("/todos", {
       title: name,
       completed: false,
       user_id,
     });
+    setLoading(false);
 
     setTodos([
       ...todos,

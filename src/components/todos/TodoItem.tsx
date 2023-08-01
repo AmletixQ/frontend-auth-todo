@@ -29,6 +29,13 @@ const StyledBlock = styled.div`
       text-decoration: underline;
     }
   }
+
+  @media screen and (max-width: 360px) {
+    font-size: 14px;
+    &:hover {
+      scale: 1;
+    }
+  }
 `;
 
 type TProps = ITodoItem & ISetTodo;

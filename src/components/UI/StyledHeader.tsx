@@ -10,6 +10,10 @@ const StyledHeader = styled.header`
   margin-bottom: 20px;
   border-bottom: 1px solid gray;
   width: 800px;
+
+  @media screen and (max-width: 360px) {
+    width: 300px;
+  }
 `;
 
 export default StyledHeader;

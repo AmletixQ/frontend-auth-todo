@@ -7,6 +7,7 @@ import Link from "next/link";
 import { ChangeEvent, FormEvent, useState } from "react";
 import { http } from "@/lib/http";
 import { IEnterUserData } from "@/interfaces/userType";
+import axios from "axios";
 
 const RegisterForm = () => {
   const [signInData, setSignInData] = useState<IEnterUserData>({
@@ -16,11 +17,12 @@ const RegisterForm = () => {
 
   const handlerSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    await http.post<{
-      id: number;
-      email: string;
-      token: string;
-    }>("/auth/signup", signInData);
+    http.get("");
+    // await http.post<{
+    //   id: number;
+    //   email: string;
+    //   token: string;
+    // }>("", signInData);
 
     setSignInData({
       email: "",

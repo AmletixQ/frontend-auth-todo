@@ -1,0 +1,11 @@
+version: "3"
+services:
+  db:
+    image: postgres
+    container_name: auth-todo-database
+    ports:
+      - "${POSTGRES_PORT}:${POSTGRES_PORT}"
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_DB=auth_todo_database
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}

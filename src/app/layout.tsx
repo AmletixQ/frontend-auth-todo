@@ -15,8 +15,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      <body className={(montserrat.className, "w-screen h-screen px-40 pt-3")}>
+    <html lang="en" className="dark">
+      <body
+        className={
+          (montserrat.className,
+          "w-screen h-screen px-40 pt-3")
+        }
+      >
         {children}
       </body>
     </html>

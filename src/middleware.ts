@@ -1,12 +1,17 @@
-import { NextResponse, type NextRequest } from "next/server";
+import { NextResponse, NextRequest } from "next/server";
 
-export async function middleware(req: NextRequest) {
-  if (!req.cookies.get("auth-token")) {
-    return NextResponse.redirect(new URL("/entrance", req.url));
+export function middleware(req: NextRequest) {
+  if (req.url.includes("_next")) {
+    return NextResponse.next();
   }
+
+  if (!req.cookies.get("auth-token") && req.url.endsWith("/dashboard")) {
+    return NextResponse.redirect(new URL("/", req.url));
+  }
+
+  if (req.cookies.get("auth-token") && req.url.endsWith("/")) {
+    return NextResponse.redirect(new URL("/dashboard", req.url));
+  }
+
   return NextResponse.next();
 }
-
-export const config = {
-  matcher: ["/", "/dashboard"],
-};

@@ -9,15 +9,15 @@ interface ILink {
 
 const links: ILink[] = [
   { href: "/dashboard", name: "Home" },
-  { href: "/dashboard/settings", name: "Settings" },
-  { href: "/dashboard/todos", name: "Todos" },
+  { href: "/settings", name: "Settings" },
+  { href: "/todos", name: "Todos" },
 ];
 
 const Header = () => {
   const path = usePathname();
 
   return (
-    <div className="flex justify-evenly py-4 border-b border-slate-700">
+    <div className="flex justify-evenly mb-4 py-4 border-b border-slate-700">
       {links.map(({ href, name }) => (
         <Link
           className={

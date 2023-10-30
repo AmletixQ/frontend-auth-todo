@@ -1,7 +1,18 @@
+"use client";
+
+import { useSession } from "@/stores/session.store";
+import { useEffect } from "react";
+
 const Dashboard = () => {
+  useEffect(() => {
+    useSession.persist.rehydrate();
+  }, []);
+  const session = useSession((state) => state.session);
   return (
-    <div className="flex justify-center items-center">
-      <h1 className="text-2xl font-bold text-yellow-500">Comming soon...</h1>
+    <div className="px-10">
+      <h1 className="text-2xl font-bold text-yellow-500">
+        Hello, {session.username}!
+      </h1>
     </div>
   );
 };

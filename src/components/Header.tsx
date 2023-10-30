@@ -1,6 +1,8 @@
 "use client";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
+import { Button } from "./ui/button";
+import { useSession } from "@/stores/session.store";
 
 interface ILink {
   href: string;
@@ -9,15 +11,21 @@ interface ILink {
 
 const links: ILink[] = [
   { href: "/dashboard", name: "Home" },
-  { href: "/dashboard/settings", name: "Settings" },
-  { href: "/dashboard/todos", name: "Todos" },
+  { href: "/todos", name: "Todos" },
+  { href: "/settings", name: "Settings" },
 ];
 
 const Header = () => {
   const path = usePathname();
+  const router = useRouter();
+  const logout = useSession((state) => state.logout);
+  const handleClick = async () => {
+    await logout();
+    router.refresh();
+  };
 
   return (
-    <div className="flex justify-evenly py-4 border-b border-slate-700">
+    <div className="flex justify-evenly mb-4 py-4 border-b border-slate-700">
       {links.map(({ href, name }) => (
         <Link
           className={
@@ -30,6 +38,9 @@ const Header = () => {
           {name}
         </Link>
       ))}
+      <Button onClick={handleClick} variant={"destructive"}>
+        Logout
+      </Button>
     </div>
   );
 };

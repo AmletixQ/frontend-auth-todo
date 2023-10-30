@@ -10,7 +10,6 @@ export const useSession = create<ISessionStore>((set) => ({
     username: undefined,
     password: undefined,
   },
-  save: (data) => set(() => ({ session: data })),
   entrance: async (_data, url) => {
     const {
       data: { user },

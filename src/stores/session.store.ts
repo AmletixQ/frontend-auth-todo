@@ -1,7 +1,6 @@
 import { http } from "@/lib/http";
 import ISession from "@/types/session/session.interface";
 import ISessionStore from "@/types/session/sessionStore.interface";
-import { useRouter } from "next/navigation";
 import { create } from "zustand";
 
 export const useSession = create<ISessionStore>((set) => ({

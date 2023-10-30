@@ -9,8 +9,8 @@ interface ILink {
 
 const links: ILink[] = [
   { href: "/dashboard", name: "Home" },
-  { href: "/settings", name: "Settings" },
   { href: "/todos", name: "Todos" },
+  { href: "/settings", name: "Settings" },
 ];
 
 const Header = () => {

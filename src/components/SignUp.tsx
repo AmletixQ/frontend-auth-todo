@@ -3,11 +3,13 @@ import { Input } from "./ui/input";
 import { Button } from "./ui/button";
 import { IEntrance } from "@/types/entrance.interface";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { http } from "@/lib/http";
 import { useRouter } from "next/navigation";
+import { useSession } from "@/stores/session.store";
 
 const SignUp = () => {
   const router = useRouter();
+  const entrance = useSession((state) => state.entrance);
+
   const {
     register,
     handleSubmit,
@@ -15,7 +17,7 @@ const SignUp = () => {
     reset,
   } = useForm<IEntrance>();
   const onSubmit: SubmitHandler<IEntrance> = async (_data) => {
-    await http.post("/users", { user: _data });
+    await entrance(_data, "/users");
     reset();
     router.push("/");
   };

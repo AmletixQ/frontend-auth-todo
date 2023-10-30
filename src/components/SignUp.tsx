@@ -15,7 +15,6 @@ const SignUp = () => {
     reset,
   } = useForm<IEntrance>();
   const onSubmit: SubmitHandler<IEntrance> = async (_data) => {
-    console.log(_data);
     await http.post("/users", { user: _data });
     reset();
     router.push("/");

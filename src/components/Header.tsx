@@ -21,7 +21,7 @@ const Header = () => {
   const logout = useSession((state) => state.logout);
   const handleClick = async () => {
     await logout();
-    router.refresh();
+    router.push("/");
   };
 
   return (

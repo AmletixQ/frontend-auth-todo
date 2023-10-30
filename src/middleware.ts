@@ -5,7 +5,7 @@ export function middleware(req: NextRequest) {
     return NextResponse.next();
   }
 
-  if (!req.cookies.get("auth-token") && req.url.endsWith("/dashboard")) {
+  if (!req.cookies.get("auth-token") && !req.url.endsWith("/")) {
     return NextResponse.redirect(new URL("/", req.url));
   }
 

@@ -16,12 +16,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className="dark">
-      <body
-        className={
-          (montserrat.className,
-          "w-screen h-screen px-40 pt-3")
-        }
-      >
+      <body className={(montserrat.className, "w-screen h-screen px-40 pt-3")}>
         {children}
       </body>
     </html>

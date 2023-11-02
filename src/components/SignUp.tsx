@@ -4,20 +4,18 @@ import { Button } from "./ui/button";
 import { IEntrance } from "@/types/entrance.interface";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
-import { useSession } from "@/stores/session.store";
+import { AuthService } from "@/services/auth.service";
 
 const SignUp = () => {
   const router = useRouter();
-  const entrance = useSession((state) => state.entrance);
-
   const {
     register,
     handleSubmit,
     formState: { errors },
     reset,
   } = useForm<IEntrance>();
-  const onSubmit: SubmitHandler<IEntrance> = async (_data) => {
-    await entrance(_data, "/users");
+  const onSubmit: SubmitHandler<IEntrance> = async (data) => {
+    await AuthService.signup({ user: data });
     reset();
     router.push("/");
   };

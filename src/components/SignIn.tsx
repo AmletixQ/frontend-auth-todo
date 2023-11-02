@@ -4,11 +4,10 @@ import { Button } from "./ui/button";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { IEntrance } from "@/types/entrance.interface";
 import { useRouter } from "next/navigation";
-import { useSession } from "@/stores/session.store";
+import { AuthService } from "@/services/auth.service";
 
 const SignIn = () => {
   const router = useRouter();
-  const entrance = useSession((state) => state.entrance);
   const {
     register,
     handleSubmit,
@@ -16,8 +15,8 @@ const SignIn = () => {
     formState: { errors },
   } = useForm<IEntrance>();
 
-  const onSubmit: SubmitHandler<IEntrance> = async (_data) => {
-    await entrance(_data, "/users/login");
+  const onSubmit: SubmitHandler<IEntrance> = async (data) => {
+    await AuthService.signin({ user: data });
     reset();
     router.push("/");
   };
